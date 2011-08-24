@@ -121,6 +121,17 @@ namespace Moonlight.Gtk
 			set { NativeMethods.moon_window_set_transparent (window, value); }
 		}
 
+        /// <summary>
+		/// Initializes the Moonlight Plugin for a Desktop environment
+		/// This will allow moonlight data to be loaded from other dll's and not from within a xap file.
+		/// </summary>
+		public void LoadDesklet()
+		{
+			string path = System.IO.Path.GetDirectoryName(".");
+						
+			Deployment.Current.InitializeDeployment (path);
+		}
+
 		/// <summary>
 		///    Initializes the Surface widget from the XAML contents in a string
 		/// </summary>

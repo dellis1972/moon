@@ -617,7 +617,7 @@ BitmapImage::CreateLoader (unsigned char *buffer)
 			Abort ();
 		}
 	} else {
-		loader = Runtime::GetWindowingSystem ()->CreatePixbufLoader (NULL);
+		loader = Runtime::GetWindowingSystem ()->CreatePixbufLoader ("png");
 	}
 }
 

@@ -304,6 +304,24 @@ namespace System.Windows {
 			}
 		}
 
+		internal bool InitializeDeployment (string localPath) {
+			XapDir = localPath;			
+			TerminateAndSetCulture (null, null);
+
+			NativeMethods.deployment_initialize_app_domain (this.native, GetType ().Assembly.FullName);
+			NativeMethods.deployment_set_initialization (native, true);
+			try {
+				EntryPointType = "System.Windows.Application";
+				EntryPointAssembly = typeof (Application).Assembly.GetName ().Name;
+				EntryAssembly = typeof (Application).Assembly;
+				ReadManifest ();
+				return LoadAssemblies ();
+			}
+			finally {
+				NativeMethods.deployment_set_initialization (native, false);
+			}
+		}
+
 		internal bool InitializeDeployment (string culture, string uiCulture)
 		{
 			TerminateAndSetCulture (culture, uiCulture);
